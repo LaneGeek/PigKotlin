@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
             turnButton.isEnabled = true
             updateScreen()
         }
+
+        updateScreen()
     }
 
     override fun onSaveInstanceState(savedInstanceState: Bundle) {
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         rollDieButton.isEnabled = savedInstanceState.getBoolean("rollDieButtonEnabled")
         turnButton.isEnabled = savedInstanceState.getBoolean("turnButtonEnabled")
         turnButton.text = savedInstanceState.getString("turnButtonText")
+
         updateScreen()
     }
 
