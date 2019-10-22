@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             nextTurnTextView.text = """${player1NameEditText.text}'s Turn"""
         else
             nextTurnTextView.text = """${player2NameEditText.text}'s Turn"""
+
         player1ScoreTextView.text = pigGame.player1Score.toString()
         player2ScoreTextView.text = pigGame.player2Score.toString()
         turnPointsTextView.text = pigGame.turnPoints.toString()
