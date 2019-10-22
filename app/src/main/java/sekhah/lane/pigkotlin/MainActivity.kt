@@ -27,14 +27,13 @@ class MainActivity : AppCompatActivity() {
             if (turnButton.text == "Start Turn") {
                 turnButton.text = "End Turn"
                 rollDieButton.isEnabled = true
-                updateScreen()
             } else {
                 turnButton.text = "Start Turn"
                 rollDieButton.isEnabled = false
                 pigGame.changeTurn()
                 die = 0
-                updateScreen()
             }
+            updateScreen()
         }
 
         newGameButton.setOnClickListener {
@@ -47,6 +46,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        // Save the current game state
+        savedInstanceState.putInt("player1Score", pigGame.player1Score)
+        savedInstanceState.putInt("player2Score", pigGame.player2Score)
+        savedInstanceState.putInt("turnPoints", pigGame.turnPoints)
+        savedInstanceState.putInt("currentPlayer", pigGame.currentPlayer)
+        savedInstanceState.putInt("die", die)
+        savedInstanceState.putBoolean("rollDieButtonEnabled", rollDieButton.isEnabled)
+        savedInstanceState.putBoolean("turnButtonEnabled", turnButton.isEnabled)
+        savedInstanceState.putString("turnButtonText", turnButton.text.toString())
+
+        super.onSaveInstanceState(savedInstanceState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        // Restore the game state
+        super.onRestoreInstanceState(savedInstanceState)
+
+        pigGame.player1Score = savedInstanceState.getInt("player1Score")
+        pigGame.player2Score = savedInstanceState.getInt("player2Score")
+        pigGame.turnPoints = savedInstanceState.getInt("turnPoints")
+        pigGame.currentPlayer = savedInstanceState.getInt("currentPlayer")
+        die = savedInstanceState.getInt("die")
+        rollDieButton.isEnabled = savedInstanceState.getBoolean("rollDieButtonEnabled")
+        turnButton.isEnabled = savedInstanceState.getBoolean("turnButtonEnabled")
+        turnButton.text = savedInstanceState.getString("turnButtonText")
+        updateScreen()
+    }
+
     private fun updateScreen() {
         if (pigGame.currentPlayer == 1)
             nextTurnTextView.text = """${player1NameEditText.text}'s Turn"""
@@ -56,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         player2ScoreTextView.text = pigGame.player2Score.toString()
         turnPointsTextView.text = pigGame.turnPoints.toString()
 
+        // Check for winner
         if (pigGame.checkForWinner() != -1) {
             when (pigGame.checkForWinner()) {
                 0 -> nextTurnTextView.text = "It is a tie!"
@@ -66,14 +95,15 @@ class MainActivity : AppCompatActivity() {
             turnButton.isEnabled = false
         }
 
+        // Update the die image
         when (die) {
+            0 -> dieImageView.setImageResource(R.drawable.pig)
             1 -> dieImageView.setImageResource(R.drawable.die1)
             2 -> dieImageView.setImageResource(R.drawable.die2)
             3 -> dieImageView.setImageResource(R.drawable.die3)
             4 -> dieImageView.setImageResource(R.drawable.die4)
             5 -> dieImageView.setImageResource(R.drawable.die5)
             6 -> dieImageView.setImageResource(R.drawable.die6)
-            else -> dieImageView.setImageResource(R.drawable.pig)
         }
     }
 }

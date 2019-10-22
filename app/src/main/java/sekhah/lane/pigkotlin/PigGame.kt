@@ -34,14 +34,14 @@ internal class PigGame {
     }
 
     fun checkForWinner(): Int {
-        // returns 0 for a tie and -1 if no winner or tie
+        // returns the player number or 0 for a tie and -1 if no winner or tie
         var winner = -1
         if (player1Score >= WINNING_SCORE || player2Score >= WINNING_SCORE) {
             if (player2Score > player1Score)
                 winner = 2
-            else if (player1Score > player2Score && currentPlayer == 1)
+            if (player1Score > player2Score && currentPlayer == 1)
                 winner = 1
-            else if (player1Score == player2Score)
+            if (player1Score == player2Score)
                 winner = 0
         }
         return winner
