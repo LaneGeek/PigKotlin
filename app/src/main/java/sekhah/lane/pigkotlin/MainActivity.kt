@@ -80,9 +80,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateScreen() {
         if (pigGame.currentPlayer == 1)
-            nextTurnTextView.text = """${player1NameEditText.text}'s Turn"""
+            nextTurnTextView.text = "${player1NameEditText.text}'s Turn"
         else
-            nextTurnTextView.text = """${player2NameEditText.text}'s Turn"""
+            nextTurnTextView.text = "${player2NameEditText.text}'s Turn"
 
         player1ScoreTextView.text = pigGame.player1Score.toString()
         player2ScoreTextView.text = pigGame.player2Score.toString()
@@ -92,8 +92,8 @@ class MainActivity : AppCompatActivity() {
         if (pigGame.checkForWinner() != -1) {
             when (pigGame.checkForWinner()) {
                 0 -> nextTurnTextView.text = "It is a tie!"
-                1 -> nextTurnTextView.text = """${player1NameEditText.text} Wins!"""
-                2 -> nextTurnTextView.text = """${player2NameEditText.text} Wins!"""
+                1 -> nextTurnTextView.text = "${player1NameEditText.text} Wins!"
+                2 -> nextTurnTextView.text = "${player2NameEditText.text} Wins!"
             }
             rollDieButton.isEnabled = false
             turnButton.isEnabled = false
